@@ -12,3 +12,14 @@ sourceSets {
     }
   }
 }
+
+repositories {
+  jcenter()
+}
+
+dependencies {
+  implementation('com.google.guava:guava:24.1-jre') {
+    /* skip optional guava dependencies */
+    transitive = false
+  }
+}

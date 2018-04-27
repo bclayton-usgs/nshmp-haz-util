@@ -38,6 +38,21 @@ public class ReadValues {
   }
   
   /**
+   * Return the {@code double} associated with an {@code Enum} key
+   *    from a {@code Map<String, String[]>}.
+   *     
+   * @param paramMap The {@code Map} 
+   * @param key The {@code Enum} key to find the value.
+   * @return The {@code double} value associated with
+   *    the {@code Enum}.
+   */   
+  public static double readDoubleValue(
+      Map<String, String[]> paramMap, 
+      Enum<?> key) {
+    return Double.valueOf(readValue(paramMap, key));
+  }
+  
+  /**
    * Return the {@code String} associated with a {@link WebServiceKey}
    *    from a {@code Map<String, String[]>}.
    *     
@@ -61,9 +76,7 @@ public class ReadValues {
    * @param key The {@code Enum} to find the value.
    * @return The {@code String} value associated with the {@code WebServiceKey}.
    */
-  public static <E extends Enum<E>> String readValue(
-      Map<String, String[]> paramMap, 
-      E key) {
+  public static String readValue(Map<String, String[]> paramMap, Enum<?> key) {
     String keyStr = key.name().toLowerCase();
     String values[] = paramMap.get(keyStr);
     validate(keyStr, values);
@@ -104,6 +117,24 @@ public class ReadValues {
   }
  
   /**
+   * Return the {@code Enum} of specified type associated with the 
+   *    {@code String} value in a {@code Map<String, String[]>} 
+   *    given the {@code Enum} key.
+   *    
+   * @param paramMap The {@code Map}.
+   * @param key The {@code Enum} key.
+   * @param type The {@code Enum} type.
+   * @return The {@code Enum} associated with the value of 
+   *    the {@code Enum} key.
+   */
+  public static <E extends Enum<E>> E readValue(
+      Map<String, String[]> paramMap,
+      Enum<?> key,
+      Class<E> type) {
+    return readValue(readValue(paramMap, key), type);
+  }
+ 
+  /**
    * Return a {@code Set<Enum>} of specified {@code Enum} type 
    *    corresponding to a comma delimited {@code String}.
    *    
@@ -132,6 +163,23 @@ public class ReadValues {
   public static <T extends Enum<T>> Set<T> readValues(
       Map<String, String[]> paramMap, 
       WebServiceKey key,
+      Class<T> type) {
+    return readValues(readValue(paramMap, key), type);
+  }
+  
+  /**
+   * Return a {@code Set<Enum>} of specifed {@code Enum} type
+   *    corresponding to a {@link WebServiceKey} in a 
+   *    {@code Map<String, String[]>}.
+   *    
+   * @param paramMap The {@code Map}.
+   * @param key The {@webServiceKey} to search the {@code Map}.
+   * @param type The {@code Enum} type to return.
+   * @return The {@code Set<Enum>}.
+   */
+  public static <T extends Enum<T>> Set<T> readValues(
+      Map<String, String[]> paramMap, 
+      Enum<?> key,
       Class<T> type) {
     return readValues(readValue(paramMap, key), type);
   }

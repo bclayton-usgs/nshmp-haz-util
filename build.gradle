@@ -22,4 +22,5 @@ dependencies {
     /* skip optional guava dependencies */
     transitive = false
   }
+  implementation 'com.google.code.gson:gson:2.8.2'
 }

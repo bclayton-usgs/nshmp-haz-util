@@ -31,7 +31,7 @@ public enum Delimiter {
    * Whitespace (' ') delimiter.
    * @see CharMatcher#WHITESPACE
    */
-  SPACE(' ', CharMatcher.WHITESPACE),
+  SPACE(' ', CharMatcher.whitespace()),
 
   /** Underscore ('_') delimiter. */
   UNDERSCORE('_');
